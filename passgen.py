@@ -4,6 +4,7 @@ from string import (ascii_lowercase, ascii_uppercase, ascii_letters,
                     digits, punctuation)
 from sys import argv
 from secrets import choice
+import subprocess
 
 alias = {
     'l' : ascii_lowercase,
@@ -67,4 +68,5 @@ if not len(alph):
     print(f'empty alphabet for spec={spec}')
 
 pwd = ''.join(choice(alph) for _ in range(ln))
-print(pwd)
+p1 = subprocess.Popen(['echo', '-n', pwd], stdout=subprocess.PIPE)
+subprocess.Popen(['xclip', '-selection', 'c'], stdin=p1.stdout)
