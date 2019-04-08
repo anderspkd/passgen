@@ -9,6 +9,7 @@ alias = {
     'l' : ascii_lowercase,
     'u' : ascii_uppercase,
     'd' : digits,
+    's' : '!@#$%',
     'p' : punctuation,
     'a' : ascii_letters
 }
@@ -21,6 +22,7 @@ def usage(progname="passgen.py"):
     l: {alias["l"]}
     u: {alias["u"]}
     d: {alias["d"]}
+    s: {alias["s"]}
     p: {alias["p"]}
     a: {alias["a"]}
     c: <custom alphabet>
