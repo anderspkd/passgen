@@ -1,0 +1,30 @@
+* passgen --- script for generating random passwords
+
+  #+name: usage
+  #+begin_example
+    $ passgen
+    passgen [-c] [length] [alphabet]
+
+    Alphabet is specificed as follows:
+
+	l: abcdefghijklmnopqrstuvwxyz
+	u: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	d: 0123456789
+	s: !@#$%
+	p: !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+	a: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+	c: <custom alphabet>
+
+	Use `-c' to copy password to clipboard instead of stdout.
+
+    Examples,
+
+	# 10 character long password picked from {a,b,c,d}
+	$ passgen 10 cabcd
+	abbacbaaba
+
+	# 5 charactor long password picked from "a" and "p" alphabets above.
+	$ passgen 5 pa
+	?(Pqv
+
+  #+end_example

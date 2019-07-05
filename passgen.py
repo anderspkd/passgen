@@ -16,7 +16,7 @@ alias = {
 }
 
 def usage(progname="passgen.py"):
-    print(f'{progname} [length] [alphabet]')
+    print(f'{progname} [-c] [length] [alphabet]')
     print()
     print(f'''Alphabet is specificed as follows:
 
@@ -28,21 +28,28 @@ def usage(progname="passgen.py"):
     a: {alias["a"]}
     c: <custom alphabet>
 
+    Use `-c' to copy password to clipboard instead of stdout.
+
 Examples,
 
+    # 10 character long password picked from {{a,b,c,d}}
     $ {progname} 10 cabcd
-    ... # 10 character long password picked from {{a,b,c,d}}
+    abbacbaaba
 
+    # 5 charactor long password picked from "a" and "p" alphabets above.
     $ {progname} 5 pa
-    ... # 5 charactor long password picked from "a" and "p" alphabets above.''')
-
+    ?(Pqv
+''')
 
 args = argv[1:]
-progname = argv[0]
+progname = argv[0].split('/')[-1]
 
 if len(args) < 2:
     usage(progname)
     exit(0)
+
+copy_to_clipboard = args[0] == '-c'
+args = args[(1 if copy_to_clipboard else 0):]
 
 try:
     ln = int(args[0])
@@ -68,5 +75,8 @@ if not len(alph):
     print(f'empty alphabet for spec={spec}')
 
 pwd = ''.join(choice(alph) for _ in range(ln))
-p1 = subprocess.Popen(['echo', '-n', pwd], stdout=subprocess.PIPE)
-subprocess.Popen(['xclip', '-selection', 'c'], stdin=p1.stdout)
+if copy_to_clipboard:
+    p1 = subprocess.Popen(['echo', '-n', pwd], stdout=subprocess.PIPE)
+    subprocess.Popen(['xclip', '-selection', 'c'], stdin=p1.stdout)
+else:
+    print(pwd)
